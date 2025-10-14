@@ -1,0 +1,31 @@
+{
+    "name": "ractstudio/wp-frame-studio",
+    "description": "A WordPress framework for building advanced wp plugin and theme.",
+    "type": "library",
+    "version": "1.0.0",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "RactStudio\\FrameStudio\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RactStudio\\FrameStudio\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mahamudul Hasan Rubel",
+            "email": "bd.mhrubel@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}

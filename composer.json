@@ -2,10 +2,7 @@
     "name": "ractstudio/wp-frame-studio",
     "description": "The modern Laravel-like core builder framework for WordPress — powering WP Plugin Frame and WP Theme Frame with clean architecture, modular design, and a next-gen developer experience.",
     "type": "library",
-    "version": "0.1.1",
-    "require": {
-        "php": ">=7.4"
-    },
+    "version": "0.0.1",
     "autoload": {
         "psr-4": {
             "RactStudio\\FrameStudio\\": "src/"
@@ -25,6 +22,10 @@
             "email": "bd.mhrubel@gmail.com"
         }
     ],
+    "require": {
+        "php": ">=7.4",
+        "twig/twig": "^3.3"
+    },
     "require-dev": {
         "phpunit/phpunit": "^9.5"
     }

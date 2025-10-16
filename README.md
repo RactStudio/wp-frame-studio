@@ -1,2 +1,2 @@
 # wp-frame-studio
-wp-frame-studio is a composer package for WordPress Plugin and Theme development.
+The core Composer package behind WP Plugin Frame and WP Theme Frame — designed to streamline modern WordPress plugin and theme development with clarity, structure, and power.

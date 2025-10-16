@@ -1,6 +1,6 @@
 {
     "name": "ractstudio/wp-frame-studio",
-    "description": "The core Composer package behind WP Plugin Frame and WP Theme Frame — designed to streamline modern WordPress plugin and theme development with clarity, structure, and power.",
+    "description": "The modern Laravel-like core builder framework for WordPress — powering WP Plugin Frame and WP Theme Frame with clean architecture, modular design, and a next-gen developer experience.",
     "type": "library",
     "version": "1.0.0",
     "require": {

@@ -1,6 +1,6 @@
 {
     "name": "ractstudio/wp-frame-studio",
-    "description": "A WordPress framework for building advanced wp plugin and theme.",
+    "description": "A WordPress composer package for developing robust WordPress Plugin and Theme for human.",
     "type": "library",
     "version": "1.0.0",
     "require": {

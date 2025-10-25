@@ -2,17 +2,16 @@
 
 namespace FrameStudio;
 
+use FrameStudio\Hooks\HooksLoader;
+
+/**
+ * Main entry class for the FrameStudio Composer package.
+ * Does not directly execute WordPress code — only bootstraps submodules.
+ */
 class FrameStudio
 {
-    public function __construct()
+    public static function hooks(): HooksLoader
     {
-        // Initialization code here
+        return new HooksLoader();
     }
-
-    public function exampleMethod()
-    {
-        // Example method functionality
-    }
-
-    // Additional methods defining core functionality can be added here
 }

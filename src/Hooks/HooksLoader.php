@@ -3,26 +3,37 @@
 namespace FrameStudio\Hooks;
 
 use FrameStudio\Hooks\Plugin\{
-    PluginActivate, PluginDeactivate, PluginUninstall,
-    PluginUpdate, PluginUpdateCustom
+    PluginActivate,
+    PluginDeactivate,
+    PluginUninstall,
+    PluginUpdate,
+    PluginUpdateCustom
 };
 
 use FrameStudio\Hooks\Theme\{
-    ThemeActivate, ThemeDeactivate, ThemeUninstall,
-    ThemeUpdate, ThemeUpdateCustom
+    ThemeActivate,
+    ThemeDeactivate,
+    ThemeUninstall,
+    ThemeUpdate,
+    ThemeUpdateCustom
 };
 
 /**
- * Centralized loader for plugin and theme hook registration.
- * Supports class overrides for full developer customization.
+ * Centralized loader for all plugin and theme hooks.
+ * Supports:
+ *  - Plugin hooks registration
+ *  - Theme hooks registration
+ *  - Developer overrides
  */
 class HooksLoader
 {
     /**
-     * Register plugin-related hooks.
+     * Register all plugin hooks.
      *
      * @param string $mainFile The main plugin file.
-     * @param array  $overrides Optional map of class overrides.
+     * @param array $overrides Optional associative array of hook overrides.
+     *                         Key: hook class name (e.g., 'PluginActivate')
+     *                         Value: fully qualified class name
      */
     public function registerPluginHooks(string $mainFile, array $overrides = []): void
     {
@@ -30,9 +41,9 @@ class HooksLoader
     }
 
     /**
-     * Register theme-related hooks.
+     * Register all theme hooks.
      *
-     * @param array $overrides Optional map of class overrides.
+     * @param array $overrides Optional associative array of hook overrides.
      */
     public function registerThemeHooks(array $overrides = []): void
     {
@@ -41,6 +52,10 @@ class HooksLoader
 
     /**
      * Internal hook registration logic.
+     *
+     * @param string $type 'Plugin' or 'Theme'
+     * @param string|null $mainFile
+     * @param array $overrides
      */
     private function registerHooks(string $type, ?string $mainFile, array $overrides): void
     {
@@ -53,15 +68,22 @@ class HooksLoader
         ];
 
         foreach ($hooks as $hookClass) {
+
+            // Default fully qualified class
             $fqcn = "\\FrameStudio\\Hooks\\{$type}\\{$hookClass}";
 
-            // Allow developer override via $overrides array
+            // Use developer override if provided
             if (isset($overrides[$hookClass]) && class_exists($overrides[$hookClass])) {
                 $fqcn = $overrides[$hookClass];
             }
 
+            // Register the hook if class exists and has register() method
             if (class_exists($fqcn) && method_exists($fqcn, 'register')) {
-                $fqcn::register($mainFile);
+                if ($type === 'Plugin') {
+                    $fqcn::register($mainFile);
+                } else {
+                    $fqcn::register();
+                }
             }
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace FrameStudio\Hooks\Theme;
+namespace RactStudio\FrameStudio\Hooks\Theme;
 
 /**
  * Base class for all theme hook handlers.

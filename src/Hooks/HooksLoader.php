@@ -1,8 +1,8 @@
 <?php
 
-namespace FrameStudio\Hooks;
+namespace RactStudio\FrameStudio\Hooks;
 
-use FrameStudio\Hooks\Plugin\{
+use RactStudio\FrameStudio\Hooks\Plugin\{
     PluginActivate,
     PluginDeactivate,
     PluginUninstall,
@@ -10,7 +10,7 @@ use FrameStudio\Hooks\Plugin\{
     PluginUpdateCustom
 };
 
-use FrameStudio\Hooks\Theme\{
+use RactStudio\FrameStudio\Hooks\Theme\{
     ThemeActivate,
     ThemeDeactivate,
     ThemeUninstall,

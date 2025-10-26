@@ -1,8 +1,8 @@
 <?php
 
-namespace FrameStudio;
+namespace RactStudio\FrameStudio;
 
-use FrameStudio\Hooks\HooksLoader;
+use RactStudio\FrameStudio\Hooks\HooksLoader;
 
 /**
  * Main entry class for the FrameStudio Composer package.

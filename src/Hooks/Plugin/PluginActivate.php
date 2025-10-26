@@ -1,6 +1,6 @@
 <?php
 
-namespace FrameStudio\Hooks\Plugin;
+namespace RactStudio\FrameStudio\Hooks\Plugin;
 
 /**
  * Handles plugin activation events.

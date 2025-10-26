@@ -1,6 +1,6 @@
 <?php
 
-namespace FrameStudio\Hooks\Plugin;
+namespace RactStudio\FrameStudio\Hooks\Plugin;
 
 /**
  * Handles updates from WordPress.org or normal plugin update flow.

@@ -1,6 +1,6 @@
 <?php
 
-namespace FrameStudio\Hooks\Theme;
+namespace RactStudio\FrameStudio\Hooks\Theme;
 
 /**
  * Handles custom theme updates (private servers, APIs, SaaS updates).

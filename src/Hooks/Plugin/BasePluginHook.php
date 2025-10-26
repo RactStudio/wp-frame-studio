@@ -1,6 +1,6 @@
 <?php
 
-namespace FrameStudio\Hooks\Plugin;
+namespace RactStudio\FrameStudio\Hooks\Plugin;
 
 /**
  * Base class for all plugin hook handlers.

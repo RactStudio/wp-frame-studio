@@ -1,6 +1,6 @@
 <?php
 
-namespace FrameStudio\Hooks\Plugin;
+namespace RactStudio\FrameStudio\Hooks\Plugin;
 
 /**
  * Handles custom update flows (e.g., private servers, GitHub, SaaS APIs).

@@ -1,6 +1,6 @@
 <?php
 
-namespace FrameStudio\Hooks\Theme;
+namespace RactStudio\FrameStudio\Hooks\Theme;
 
 /**
  * Handles theme deactivation events.

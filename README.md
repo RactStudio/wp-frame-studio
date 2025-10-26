@@ -4,3 +4,5 @@
 With a clean, modular architecture, `WP Frame Studio` reimagines WordPress development — bringing Laravel-like organization, advanced tooling, and smooth workflows to the WordPress world.
 
 It’s the framework behind the frameworks — built for humans who love clean, modern, and scalable WordPress development.
+
+### [Composer Package](https://packagist.org/packages/ractstudio/wp-frame-studio)

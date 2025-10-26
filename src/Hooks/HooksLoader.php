@@ -70,7 +70,7 @@ class HooksLoader
         foreach ($hooks as $hookClass) {
 
             // Default fully qualified class
-            $fqcn = "\\FrameStudio\\Hooks\\{$type}\\{$hookClass}";
+            $fqcn = "\\RactStudio\\FrameStudio\\Hooks\\{$type}\\{$hookClass}";
 
             // Use developer override if provided
             if (isset($overrides[$hookClass]) && class_exists($overrides[$hookClass])) {

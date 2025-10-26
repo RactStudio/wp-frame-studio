@@ -22,7 +22,7 @@ class ThemeActivate extends BaseThemeHook
      */
     public static function handle(): void
     {
-        error_log('[FrameStudio] Theme activated.');
+        // error_log('[FrameStudio] Theme activated.');
 
         static::dispatch([
             'theme' => wp_get_theme()->get('Name'),

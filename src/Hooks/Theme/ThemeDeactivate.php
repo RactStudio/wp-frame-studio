@@ -25,7 +25,7 @@ class ThemeDeactivate extends BaseThemeHook
      */
     public static function handle(string $newName = '', string $oldName = ''): void
     {
-        error_log('[FrameStudio] Theme deactivated: ' . $oldName);
+        // error_log('[FrameStudio] Theme deactivated: ' . $oldName);
 
         static::dispatch([
             'old_theme' => $oldName,

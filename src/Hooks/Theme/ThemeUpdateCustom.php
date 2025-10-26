@@ -26,7 +26,7 @@ class ThemeUpdateCustom extends BaseThemeHook
      */
     public static function handle(string $themeSlug, $response): void
     {
-        error_log('[FrameStudio] Custom theme update handled for ' . $themeSlug);
+        // error_log('[FrameStudio] Custom theme update handled for ' . $themeSlug);
 
         static::dispatch([
             'slug' => $themeSlug,

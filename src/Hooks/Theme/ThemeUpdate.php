@@ -31,7 +31,7 @@ class ThemeUpdate extends BaseThemeHook
 
         if (isset($options['themes']) && is_array($options['themes'])) {
             foreach ($options['themes'] as $theme) {
-                error_log('[FrameStudio] Theme updated: ' . $theme);
+                // error_log('[FrameStudio] Theme updated: ' . $theme);
             }
         }
 

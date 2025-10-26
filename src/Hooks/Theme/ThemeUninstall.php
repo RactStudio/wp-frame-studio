@@ -24,7 +24,7 @@ class ThemeUninstall extends BaseThemeHook
      */
     public static function handle(): void
     {
-        error_log('[FrameStudio] Theme uninstalled.');
+        // error_log('[FrameStudio] Theme uninstalled.');
 
         static::dispatch([
             'theme' => wp_get_theme()->get('Name'),

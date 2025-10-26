@@ -24,7 +24,7 @@ class PluginActivate extends BasePluginHook
      */
     public static function handle(): void
     {
-        error_log('[FrameStudio] Plugin activated.');
+        // error_log('[FrameStudio] Plugin activated.');
 
         static::dispatch([
             'time' => time(),

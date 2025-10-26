@@ -30,7 +30,7 @@ class PluginUpdateCustom extends BasePluginHook
      */
     public static function handle(string $slug, $response): void
     {
-        error_log('[FrameStudio] Custom plugin update handled for ' . $slug);
+        // error_log('[FrameStudio] Custom plugin update handled for ' . $slug);
 
         static::dispatch([
             'slug' => $slug,

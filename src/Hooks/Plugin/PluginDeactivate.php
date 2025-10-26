@@ -24,7 +24,7 @@ class PluginDeactivate extends BasePluginHook
      */
     public static function handle(): void
     {
-        error_log('[FrameStudio] Plugin deactivated.');
+        // error_log('[FrameStudio] Plugin deactivated.');
 
         static::dispatch([
             'time' => time(),

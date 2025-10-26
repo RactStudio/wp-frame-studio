@@ -24,7 +24,7 @@ class PluginUninstall extends BasePluginHook
      */
     public static function handle(): void
     {
-        error_log('[FrameStudio] Plugin uninstalled.');
+        // error_log('[FrameStudio] Plugin uninstalled.');
 
         static::dispatch([
             'time' => time(),

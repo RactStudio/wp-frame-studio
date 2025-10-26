@@ -33,7 +33,7 @@ class PluginUpdate extends BasePluginHook
 
         if (isset($options['plugins']) && is_array($options['plugins'])) {
             foreach ($options['plugins'] as $plugin) {
-                error_log('[FrameStudio] Plugin updated: ' . $plugin);
+                // error_log('[FrameStudio] Plugin updated: ' . $plugin);
             }
         }
 

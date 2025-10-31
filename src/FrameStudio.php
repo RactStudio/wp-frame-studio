@@ -15,4 +15,3 @@ class FrameStudio
         return new HooksLoader();
     }
 }
-

@@ -6,7 +6,10 @@
     "autoload": {
         "psr-4": {
             "RactStudio\\FrameStudio\\": "src/"
-        }
+        },
+        "files": [
+            "src/Support/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -28,9 +31,24 @@
     ],
     "require": {
         "php": ">=7.4",
-        "twig/twig": "^3.3"
+        "illuminate/container": "^8.0|^9.0|^10.0",
+        "illuminate/database": "^8.0|^9.0|^10.0",
+        "illuminate/config": "^8.0|^9.0|^10.0",
+        "illuminate/events": "^8.0|^9.0|^10.0",
+        "illuminate/cache": "^8.0|^9.0|^10.0",
+        "illuminate/filesystem": "^8.0|^9.0|^10.0",
+        "illuminate/translation": "^8.0|^9.0|^10.0",
+        "illuminate/queue": "^8.0|^9.0|^10.0",
+        "illuminate/support": "^8.0|^9.0|^10.0",
+        "vlucas/phpdotenv": "^5.0",
+        "symfony/console": "^5.0|^6.0",
+        "league/flysystem": "^2.0|^3.0",
+        "twig/twig": "^3.3",
+        "filp/whoops": "^2.14",
+        "maximebf/php-debugbar": "^1.17",
+        "symfony/mailer": "^5.0|^6.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5|^10.0"
     }
 }

@@ -67,6 +67,7 @@ class Application extends Container
     protected function registerBaseBindings()
     {
         static::setInstance($this);
+        Facade::setFacadeApplication($this);
 
         $this->singleton('app', function ($app) {
             return $app;

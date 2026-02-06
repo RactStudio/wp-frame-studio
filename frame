@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+
+use RactStudio\FrameStudio\Console\Kernel;
+use RactStudio\FrameStudio\Foundation\Application;
+
+// Define base path
+define('FRAME_STUDIO_START', microtime(true));
+
+// Autoload
+require __DIR__.'/vendor/autoload.php';
+
+// Create App
+$app = new Application(__DIR__);
+
+// Boot Kernel
+$kernel = new Kernel($app);
+// $status = $kernel->handle($input, $output); // In a real scenario we'd create Input/Output
+// For simplicity using default Symfony globals for now which `run()` handles.
+
+$kernel->handle(
+    new \Symfony\Component\Console\Input\ArgvInput,
+    new \Symfony\Component\Console\Output\ConsoleOutput
+);

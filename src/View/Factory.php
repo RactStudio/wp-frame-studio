@@ -2,29 +2,34 @@
 
 namespace RactStudio\FrameStudio\View;
 
-use Twig\Loader\FilesystemLoader;
-use Twig\Environment;
+use Exception;
 
 class Factory
 {
     /**
-     * The Twig Environment instance.
+     * The array of view paths.
      *
-     * @var \Twig\Environment
+     * @var array
      */
-    protected $twig;
+    protected $paths;
+
+    /**
+     * Data shared across all views.
+     *
+     * @var array
+     */
+    protected $shared = [];
 
     /**
      * Create a new view factory instance.
      *
-     * @param  string|array  $path
-     * @param  array  $options
+     * @param  array|string  $paths
+     * @param  array  $options  (Unused, kept for backward compat signature if needed)
      * @return void
      */
-    public function __construct($path, $options = [])
+    public function __construct($paths, $options = [])
     {
-        $loader = new FilesystemLoader($path);
-        $this->twig = new Environment($loader, $options);
+        $this->paths = (array) $paths;
     }
 
     /**
@@ -45,23 +50,109 @@ class Factory
      * @param  string  $view
      * @param  array  $data
      * @return string
+     * @throws \Exception
      */
     public function render($view, $data = [])
     {
-        // Normalize view name (dot notation to slashes)
-        $view = str_replace('.', '/', $view) . '.twig';
+        $path = $this->find($view);
         
-        return $this->twig->render($view, $data);
+        $data = array_merge($this->shared, $data);
+        
+        // Render in a clean scope
+        return $this->evaluatePath($path, $data);
+    }
+    
+    /**
+     * Get the evaluated contents of the view.
+     *
+     * @param  string  $path
+     * @param  array   $data
+     * @return string
+     */
+    protected function evaluatePath($path, $data)
+    {
+        $obLevel = ob_get_level();
+
+        ob_start();
+
+        extract($data, EXTR_SKIP);
+
+        try {
+            include $path;
+        } catch (Exception $e) {
+            $this->handleViewException($e, $obLevel);
+        } catch (\Throwable $e) {
+            $this->handleViewException(new Exception($e->getMessage(), 0, $e), $obLevel);
+        }
+
+        return ob_get_clean();
+    }
+    
+    /**
+     * Handle a view exception.
+     *
+     * @param  \Exception  $e
+     * @param  int  $obLevel
+     * @return void
+     *
+     * @throws \Exception
+     */
+    protected function handleViewException(Exception $e, $obLevel)
+    {
+        while (ob_get_level() > $obLevel) {
+            ob_end_clean();
+        }
+
+        throw $e;
+    }
+
+    /**
+     * Find the view file.
+     *
+     * @param  string  $view
+     * @return string
+     * @throws \Exception
+     */
+    protected function find($view)
+    {
+        $view = str_replace('.', '/', $view);
+        
+        foreach ($this->paths as $path) {
+            // Check for .php files (native)
+            $file = rtrim($path, '/') . '/' . $view . '.php';
+            if (file_exists($file)) {
+                return $file;
+            }
+        }
+        
+        throw new Exception("View [{$view}] not found.");
     }
     
     /**
      * Add a path to the loader.
      * 
      * @param string $path
-     * @param string $namespace
      */
-    public function addPath($path, $namespace = FilesystemLoader::MAIN_NAMESPACE)
+    public function addPath($path)
     {
-        $this->twig->getLoader()->addPath($path, $namespace);
+        $this->paths[] = $path;
+    }
+    
+    /**
+     * Share data with all views.
+     *
+     * @param  array|string  $key
+     * @param  mixed  $value
+     * @return mixed
+     */
+    public function share($key, $value = null)
+    {
+        $keys = is_array($key) ? $key : [$key => $value];
+
+        foreach ($keys as $key => $value) {
+            $this->shared[$key] = $value;
+        }
+
+        return $value;
     }
 }

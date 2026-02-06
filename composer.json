@@ -31,7 +31,6 @@
     ],
     "require": {
         "php": "^8.0",
-        "twig/twig": "^3.3",
         "vlucas/phpdotenv": "^5.5",
         "symfony/console": "^5.4|^6.0"
     },

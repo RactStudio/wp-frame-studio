@@ -30,6 +30,13 @@ class Container implements \ArrayAccess
     protected $instances = [];
 
     /**
+     * The registered type aliases.
+     *
+     * @var array
+     */
+    protected $aliases = [];
+
+    /**
      * Set the globally available instance of the container.
      *
      * @param  static|null  $container
@@ -84,6 +91,18 @@ class Container implements \ArrayAccess
     }
 
     /**
+     * Alias a type to a different name.
+     *
+     * @param  string  $abstract
+     * @param  string  $alias
+     * @return void
+     */
+    public function alias($abstract, $alias)
+    {
+        $this->aliases[$alias] = $abstract;
+    }
+
+    /**
      * Resolve the given type from the container.
      *
      * @param  string  $abstract
@@ -104,6 +123,10 @@ class Container implements \ArrayAccess
      */
     protected function resolve($abstract)
     {
+        if (isset($this->aliases[$abstract])) {
+            $abstract = $this->aliases[$abstract];
+        }
+
         // 1. Return singleton if exists
         if (isset($this->instances[$abstract])) {
             return $this->instances[$abstract];

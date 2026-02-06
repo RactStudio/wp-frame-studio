@@ -35,6 +35,7 @@ class BootManager
         // 2. Register Service Providers
         // Default Core Providers
         (new \RactStudio\FrameStudio\View\ViewServiceProvider($this->app))->register();
+        (new \RactStudio\FrameStudio\Database\DatabaseServiceProvider($this->app))->register();
 
         // 3. Boot Service Providers
         

@@ -4,7 +4,7 @@ namespace RactStudio\FrameStudio\Database;
 
 use RactStudio\FrameStudio\Support\Str;
 
-abstract class Model
+abstract class Model implements \JsonSerializable
 {
     /**
      * The table associated with the model.

@@ -28,6 +28,27 @@ abstract class Model
     public $timestamps = true;
 
     /**
+     * The model's attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [];
+
+    /**
+     * The model's original attributes.
+     *
+     * @var array
+     */
+    protected $original = [];
+
+    /**
+     * Indicates if the model exists.
+     *
+     * @var bool
+     */
+    public $exists = false;
+
+    /**
      * Create a new model instance.
      *
      * @param  array  $attributes
@@ -62,8 +83,28 @@ abstract class Model
      */
     public function setAttribute($key, $value)
     {
-        $this->$key = $value;
+        $this->attributes[$key] = $value;
         return $this;
+    }
+
+    public function getAttribute($key)
+    {
+        return $this->attributes[$key] ?? null;
+    }
+
+    public function __get($key)
+    {
+        return $this->getAttribute($key);
+    }
+
+    public function __set($key, $value)
+    {
+        $this->setAttribute($key, $value);
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->attributes;
     }
 
     /**
@@ -112,6 +153,90 @@ abstract class Model
     public function __call($method, $parameters)
     {
         return $this->newQuery()->$method(...$parameters);
+    }
+
+    /**
+     * Save the model to the database.
+     *
+     * @return bool
+     */
+    public function save()
+    {
+        $query = $this->newQuery();
+
+        if ($this->exists) {
+            $this->performUpdate($query);
+        } else {
+            $this->performInsert($query);
+        }
+
+        return true;
+    }
+
+    protected function performInsert($query)
+    {
+        // Simple insert wrapper using WPDB via Connection/Builder
+        // Ideally Builder has insert() method. Assuming it does or we use DB::table
+        
+        // For now, let's use the DB facade helper to be safe if Builder is incomplete
+        global $wpdb;
+        $table = $query->calculateTableName(); // We need to expose table name
+        
+        $wpdb->insert($table, $this->attributes);
+        $this->attributes[$this->primaryKey] = $wpdb->insert_id;
+        $this->exists = true;
+    }
+
+    protected function performUpdate($query)
+    {
+        global $wpdb;
+        $table = $query->calculateTableName();
+        
+        $wpdb->update(
+            $table, 
+            $this->attributes, 
+            [$this->primaryKey => $this->attributes[$this->primaryKey]]
+        );
+    }
+    
+    public function delete()
+    {
+        global $wpdb;
+        $table = $this->newQuery()->calculateTableName();
+        $wpdb->delete($table, [$this->primaryKey => $this->attributes[$this->primaryKey]]);
+        $this->exists = false;
+        return true;
+    }
+
+    public static function all()
+    {
+        $instance = new static;
+        global $wpdb;
+        $table = $instance->newQuery()->calculateTableName();
+        $results = $wpdb->get_results("SELECT * FROM {$table}", ARRAY_A);
+        
+        return array_map(function($item) use ($instance) {
+            return $instance->newFromBuilder($item);
+        }, $results);
+    }
+    
+    public static function find($id)
+    {
+        $instance = new static;
+        global $wpdb;
+        $table = $instance->newQuery()->calculateTableName();
+        $row = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$table} WHERE {$instance->primaryKey} = %d", $id), ARRAY_A);
+        
+        if (!$row) return null;
+        
+        return $instance->newFromBuilder($row);
+    }
+    
+    public function newFromBuilder($attributes = [])
+    {
+        $model = new static((array) $attributes);
+        $model->exists = true;
+        return $model;
     }
 
     /**

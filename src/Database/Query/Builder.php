@@ -124,6 +124,16 @@ class Builder
     }
 
     /**
+     * Get the prefixed table name.
+     *
+     * @return string
+     */
+    public function calculateTableName()
+    {
+        return $this->connection->getPrefix() . $this->from;
+    }
+
+    /**
      * Execute the query as a "select" statement.
      *
      * @param  array  $columns

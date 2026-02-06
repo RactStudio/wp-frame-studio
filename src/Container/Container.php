@@ -6,7 +6,7 @@ use Closure;
 use Exception;
 use ReflectionClass;
 
-class Container
+class Container implements \ArrayAccess
 {
     /**
      * The current globally available container (if any).
@@ -198,5 +198,52 @@ class Container
     public function bound($abstract)
     {
         return isset($this->bindings[$abstract]) || isset($this->instances[$abstract]);
+    }
+    /**
+     * Determine if a given offset exists.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function offsetExists($key): bool
+    {
+        return $this->bound($key);
+    }
+
+    /**
+     * Get the value at a given offset.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    #[\ReturnTypeWillChange]
+    public function offsetGet($key)
+    {
+        return $this->make($key);
+    }
+
+    /**
+     * Set the value at a given offset.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return void
+     */
+    public function offsetSet($key, $value): void
+    {
+        $this->bind($key, $value instanceof Closure ? $value : function () use ($value) {
+            return $value;
+        });
+    }
+
+    /**
+     * Unset the value at a given offset.
+     *
+     * @param  string  $key
+     * @return void
+     */
+    public function offsetUnset($key): void
+    {
+        unset($this->bindings[$key], $this->instances[$key]);
     }
 }

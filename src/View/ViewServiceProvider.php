@@ -18,5 +18,9 @@ class ViewServiceProvider extends ServiceProvider
             $path = $app['config']['view.paths'] ?? [];
             return new Factory($path, $app['config']['view.options'] ?? []);
         });
+
+        $this->app->bind(Factory::class, function($app) {
+            return $app['view'];
+        });
     }
 }

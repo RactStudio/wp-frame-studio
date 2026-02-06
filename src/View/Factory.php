@@ -125,16 +125,7 @@ class Factory
             }
         }
         
-        if (empty($this->paths)) {
-            throw new Exception("View [{$view}] not found. No view paths configured.");
-        }
-        
-        $checked = [];
-        foreach ($this->paths as $path) {
-            $checked[] = rtrim($path, '/') . '/' . $view . '.php';
-        }
-        
-        throw new Exception("View [{$view}] not found. Searched in: " . implode(', ', $checked));
+        throw new Exception("View [{$view}] not found.");
     }
     
     /**
